@@ -147,6 +147,10 @@
 		<!-- AWS XRAY -->
 		<dependency>
 			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-xray-recorder-sdk-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-xray-recorder-sdk-apache-http</artifactId>
 		</dependency>
 		<dependency>
@@ -159,19 +163,53 @@
 		</dependency>
 		<dependency>
 			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-xray-recorder-sdk-sql-postgres</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-xray-recorder-sdk-sql-mysql</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.amazonaws</groupId>
-			<artifactId>aws-xray-recorder-sdk-spring</artifactId>
+			<groupId>javax.el</groupId>
+			<artifactId>javax.el-api</artifactId>
+			<version>3.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-xray-recorder-sdk-spring</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>software.amazon.disco</groupId>
+			<artifactId>disco-toolkit-bom</artifactId>
+			<version>0.10.0</version>
+			<type>pom</type>
+			<scope>import</scope>
+		</dependency>
+		<dependency>
+			<groupId>software.amazon.disco</groupId>
+			<artifactId>disco-java-agent</artifactId>
+			<version>0.10.0</version>
+		</dependency>
+		<dependency>
+			<groupId>software.amazon.disco</groupId>
+			<artifactId>disco-java-agent-aws-plugin</artifactId>
+			<version>0.10.0</version>
+		</dependency>
+		<dependency>
+			<groupId>software.amazon.disco</groupId>
+			<artifactId>disco-java-agent-sql-plugin</artifactId>
+			<version>0.10.0</version>
+		</dependency>
+		<dependency>
+			<groupId>software.amazon.disco</groupId>
+			<artifactId>disco-java-agent-web-plugin</artifactId>
+			<version>0.10.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.amazonaws</groupId>
-			<artifactId>aws-xray-recorder-sdk-core</artifactId>
+			<artifactId>aws-xray-agent-plugin</artifactId>
+			<version>2.7.1</version>
 		</dependency>
 	</dependencies>
 	<!-- AWS XRAY -->

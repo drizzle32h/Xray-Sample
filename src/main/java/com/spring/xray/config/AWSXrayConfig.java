@@ -16,6 +16,7 @@ import com.amazonaws.xray.AWSXRayRecorderBuilder;
 import com.amazonaws.xray.javax.servlet.AWSXRayServletFilter;
 import com.amazonaws.xray.plugins.EC2Plugin;
 import com.amazonaws.xray.plugins.ECSPlugin;
+import com.amazonaws.xray.plugins.EKSPlugin;
 import com.amazonaws.xray.strategy.ContextMissingStrategy;
 import com.amazonaws.xray.strategy.DefaultStreamingStrategy;
 import com.amazonaws.xray.strategy.sampling.LocalizedSamplingStrategy;
@@ -24,11 +25,10 @@ import com.amazonaws.xray.strategy.sampling.LocalizedSamplingStrategy;
 public class AWSXrayConfig {
 	@PostConstruct
 	public void init() {
-		AWSXRayRecorderBuilder builder = AWSXRayRecorderBuilder.standard().withPlugin(new EC2Plugin()).withPlugin(new ECSPlugin());
+		AWSXRayRecorderBuilder builder = AWSXRayRecorderBuilder.standard().withPlugin(new EC2Plugin()).withPlugin(new ECSPlugin()).withPlugin(new EKSPlugin());
 		URL ruleFile = AWSXrayConfig.class.getResource("/sampling-rules.json");
 		builder.withSamplingStrategy(new LocalizedSamplingStrategy(ruleFile));
 		builder.withContextMissingStrategy(new IgnoreContextMissingStrategy());
-		// Exception while sending segment over UDP 에러 해결을 위해 추가함
 		builder.withStreamingStrategy(new DefaultStreamingStrategy(30));
 		AWSXRayRecorder globalRecorder = builder.build();
 		AWSXRay.setGlobalRecorder(globalRecorder);
@@ -48,7 +48,6 @@ public class AWSXrayConfig {
 		return registration;
 	}
 
-	// context Missing 에러 해결을 위해 추가함
 	public class IgnoreContextMissingStrategy implements ContextMissingStrategy {
 		public IgnoreContextMissingStrategy() {
 		}
