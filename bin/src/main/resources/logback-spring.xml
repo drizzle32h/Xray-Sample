@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<conversionRule conversionWord="clr"
+		converterClass="org.springframework.boot.logging.logback.ColorConverter" />
+	<conversionRule conversionWord="wex"
+		converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter" />
+	<conversionRule conversionWord="wEx"
+		converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter" />
+
+	<property name="FILE_LOG_PATTERN"
+		value="[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%-5level] [%logger{36}:%L] ### %msg%n" />
+
+	<include
+		resource="org/springframework/boot/logging/logback/defaults.xml" />
+	<springProperty scope="context" name="springAppName"
+		source="spring.application.name" />
+	<property name="CONSOLE_LOG_PATTERN"
+		value="%d{yyyy-MM-dd HH:mm:ss.SSS} %5p [${springAppName},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-}] %m%n" />
+
+	<appender name="console"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<Pattern>${CONSOLE_LOG_PATTERN}</Pattern>
+		</encoder>
+	</appender>
+
+	<appender name="file"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>spring.log</file>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>spring.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			<totalSizeCap>1GB</totalSizeCap>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${CONSOLE_LOG_PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+	<root level="INFO">
+		<appender-ref ref="console" />
+		<appender-ref ref="file" />
+	</root>
+</configuration>
