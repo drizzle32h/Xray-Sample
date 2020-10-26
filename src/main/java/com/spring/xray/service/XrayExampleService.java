@@ -25,13 +25,13 @@ public class XrayExampleService {
 	@Autowired
 	private RestTemplate restTemplate;
 
-//	@Bean
-//	public RestTemplate getRestTemplate() {
-//		return new RestTemplate();
-//	}
-	
 	@Bean
 	public RestTemplate getRestTemplate() {
+		return new RestTemplate();
+	}
+
+	@Bean
+	public RestTemplate restTemplate() {
 		return new RestTemplate(clientHttpRequestFactory());
 	}
 
