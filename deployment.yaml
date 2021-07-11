@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: springboot-deployment
+  name: xray-deployment
   labels:
-    app: springboot
+    app: xray
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: springboot
+      app: xray
   template:
     metadata:
       labels:
-        app: springboot
+        app: xray
     spec:
       containers:
-      - name: springboot
-        image: 10.0.31.98:5000/eks/springsleuthtest:latest
+      - name: xray
+        image: sonnaraon/tekton-sample-repository:b106bc30785a4f8ba2633db6e7c8bef05fcd7035
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
@@ -27,12 +27,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: springboot
+  name: xray
   annotations:
     alb.ingress.kubernetes.io/healthcheck-path: /healthcheck
 spec:
   selector:
-    app: springboot
+    app: xray
   ports:
     - protocol: TCP
       port: 8080
@@ -42,17 +42,17 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: springboot-ingress
+  name: xray-ingress
   annotations:
     kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/subnets: subnet-016aca96009a3e584,subnet-02ce7492dac470111
+    alb.ingress.kubernetes.io/subnets: subnet-04c293813f7f4fb3a,subnet-060c17b22c06468b1
 spec:
   rules:
   - http:
       paths:
       - backend:
-          serviceName: springboot
+          serviceName: xray
           servicePort: 8080
         path: /*
